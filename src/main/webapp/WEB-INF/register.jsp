@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <jsp:include page="../../WEB-INF/partials">
+    <jsp:include page="../WEB-INF/partials">
         <jsp:param name="title" value="Register Account" />
     </jsp:include>
 </head>
