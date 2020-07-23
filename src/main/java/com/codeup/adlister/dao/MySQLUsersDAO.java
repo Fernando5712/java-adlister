@@ -5,7 +5,7 @@ import com.mysql.cj.jdbc.Driver;
 import java.sql.*;
 
 public class MySQLUsersDAO implements Users {
-    private Connection connection = null;
+    private Connection connection;
 
     public MySQLUsersDAO(Config config) {
         try {

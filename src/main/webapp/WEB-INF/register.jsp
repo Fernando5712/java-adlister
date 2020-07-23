@@ -3,10 +3,12 @@
 <html>
 <head>
     <jsp:include page="../WEB-INF/partials">
-        <jsp:param name="title" value="Register Account" />
+        <jsp:param name="title" value="Register Account"/>
     </jsp:include>
+    <jsp:include page="/WEB-INF/partials/head.jsp"/>
 </head>
 <body>
+<jsp:include page="/WEB-INF/partials/navbar.jsp"/>
 <div class="container">
     <h1>Create An Account</h1>
     <form action="/register" method="POST">
