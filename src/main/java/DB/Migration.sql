@@ -1,4 +1,4 @@
-DROP DATABASE IF EXIST adlister_db;
+DROP DATABASE IF EXISTS adlister_db;
 
 CREATE DATABASE adlister_db;
 
