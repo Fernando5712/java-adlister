@@ -10,6 +10,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.sql.Statement.RETURN_GENERATED_KEYS;
+
 public class MySQLAdsDao implements Ads {
     private Connection connection = null;
 
@@ -42,7 +44,7 @@ public class MySQLAdsDao implements Ads {
     public Long insert(Ad ad) {
         try {
             String insertQuery = "INSERT INTO ads(user_id, title, description) VALUES (?, ?, ?)";
-            PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = connection.prepareStatement(insertQuery, RETURN_GENERATED_KEYS);
             stmt.setLong(1, ad.getUserId());
             stmt.setString(2, ad.getTitle());
             stmt.setString(3, ad.getDescription());
@@ -70,5 +72,35 @@ public class MySQLAdsDao implements Ads {
             ads.add(extractAd(rs));
         }
         return ads;
+    }
+
+    public Ad findId(long id){
+        String findIdQuery = "SELECT * WHERE id = ?";
+        try{
+            PreparedStatement statement = connection.prepareStatement(findIdQuery);
+            statement.setLong(1, id);
+            ResultSet rs = statement.executeQuery();
+            if(! rs.next()){
+                return null;
+            }
+            return extractAd(rs);
+        } catch (SQLException e){
+            throw new RuntimeException("Error finding id", e);
+        }
+    }
+
+
+    public Ad deleteAds(long id) {
+        try {
+            findId(id);
+            String deleteQuery = "DELETE FROM ads WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(deleteQuery, RETURN_GENERATED_KEYS);
+            statement.setLong(1, id);
+            statement.executeUpdate();
+            boolean confirm = statement.execute();
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error, ad cannot be deleted", e);
+        }
     }
 }
