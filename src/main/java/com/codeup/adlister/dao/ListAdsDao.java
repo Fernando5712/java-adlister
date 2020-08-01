@@ -8,6 +8,8 @@ import java.util.List;
 public class ListAdsDao implements Ads {
     private List<Ad> ads;
 
+    public ListAdsDao(Config config){}
+
     public List<Ad> all() {
         if (ads == null) {
             ads = generateAds();
@@ -28,8 +30,22 @@ public class ListAdsDao implements Ads {
     }
 
     @Override
-    public Ad deleteAds(long id) {
-        return ads.get((int) id -1);
+    public List<Ad> adsByUSer(long userId) {
+        return null;
+    }
+
+    @Override
+    public Ad findById(long id) {return ads.get((int) id - 1);}
+    @Override
+    public Ad deleteAds(long id) { return ads.get((int) id - 1); }
+    @Override
+    public List<Ad> search(String query) {
+        return null;
+    }
+
+    @Override
+    public List<Ad> adsByUser(long userId) {
+        return null;
     }
 
     private List<Ad> generateAds() {

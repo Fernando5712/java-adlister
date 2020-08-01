@@ -3,9 +3,6 @@ package com.codeup.adlister.dao;
 import com.codeup.adlister.models.Ad;
 import com.mysql.cj.jdbc.Driver;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +54,20 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+    @Override
+    public List<Ad> adsByUSer(long userId) {
+        PreparedStatement stmt = null;
+        try {
+            String insertQUery = "SELECT * FROM ads WHERE user_id = ?";
+            stmt = connection.prepareStatement(insertQUery, RETURN_GENERATED_KEYS);
+            stmt.setLong(1,userId);
+            ResultSet rs = stmt.executeQuery();
+            return createAdsFromResults(rs);
+        } catch (SQLException e){
+            throw new RuntimeException("Error getting ad");
+        }
+    }
+
     private Ad extractAd(ResultSet rs) throws SQLException {
         return new Ad(
             rs.getLong("id"),
@@ -74,7 +85,7 @@ public class MySQLAdsDao implements Ads {
         return ads;
     }
 
-    public Ad findId(long id){
+    public Ad findById(long id){
         String findIdQuery = "SELECT * WHERE id = ?";
         try{
             PreparedStatement statement = connection.prepareStatement(findIdQuery);
@@ -92,7 +103,7 @@ public class MySQLAdsDao implements Ads {
 
     public Ad deleteAds(long id) {
         try {
-            findId(id);
+            findById(id);
             String deleteQuery = "DELETE FROM ads WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(deleteQuery, RETURN_GENERATED_KEYS);
             statement.setLong(1, id);
@@ -101,6 +112,33 @@ public class MySQLAdsDao implements Ads {
             return null;
         } catch (SQLException e) {
             throw new RuntimeException("Error, ad cannot be deleted", e);
+        }
+    }
+
+    @Override
+    public List<Ad> search(String query) {
+        PreparedStatement stmt = null;
+        try{
+            stmt = connection.prepareStatement("SELECT * FROM ads WHERE title LIKE ? OR description LIKE ?");
+            stmt.setString(1, "%" + query + "%");
+            stmt.setString(2, "%" + query + "%");
+            ResultSet rs = stmt.executeQuery();
+            return createAdsFromResults(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error Searching" , e);
+        }
+    }
+    @Override
+    public List<Ad> adsByUser(long userId){
+        PreparedStatement stmt = null;
+        try {
+            String insertQuery = "SELECT * FROM ads WHERE user_id = ?";
+            stmt = connection.prepareStatement(insertQuery, RETURN_GENERATED_KEYS);
+            stmt.setLong(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            return createAdsFromResults(rs);
+        } catch (SQLException e){
+            throw new RuntimeException("Cannot retrieve ad", e);
         }
     }
 }

@@ -10,6 +10,8 @@
     <jsp:include page="/WEB-INF/partials/navbar.jsp" />
     <div class="container">
         <h1>Welcome to the Adlister!</h1>
+
+        <a class="btn btn-primary streched-link" href="/ads">See all ads ?</a>
     </div>
 </body>
 </html>
