@@ -23,4 +23,6 @@ public interface Ads {
     Ad edit(long id, String title);
 
     Ad editDescription(long id, String description);
+
+    Ad editTitle(long id, String title);
 }

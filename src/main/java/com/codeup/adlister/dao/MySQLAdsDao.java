@@ -172,4 +172,19 @@ public class MySQLAdsDao implements Ads {
             throw new RuntimeException("Error editing description");
         }
     }
+
+    @Override
+    public Ad editTitle(long id, String title){
+        findById(id);
+        String editTitleQuery = "UPDATE ads SET title = ? WHERE id = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(editTitleQuery);
+            stmt.setString(1, title);
+            stmt.setLong(2,id);
+            stmt.executeUpdate();
+            return null;
+        }catch (SQLException e){
+            throw new RuntimeException("Error changing title");
+        }
+    }
 }
