@@ -58,9 +58,7 @@ public class ListAdsDao implements Ads {
     }
 
     @Override
-    public Ad editTitle(long id, String title) {
-        return ads.get((int) id - 1);
-    }
+    public Ad editTitle(long id, String title) { return ads.get((int) id - 1); }
 
     private List<Ad> generateAds() {
         List<Ad> ads = new ArrayList<>();

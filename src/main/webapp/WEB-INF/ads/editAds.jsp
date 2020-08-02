@@ -24,13 +24,12 @@
             <label for="title">Title</label>
             <input id="title" value="${ad.title}" name="title" class="form-control" type="text">
             <br>
-            <input type="submit" name="updateTitle" value="Title Update" class="btn btn-success stretched-link">
         </div>
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea id="description" name="updatedDescription" class="form-control">${ad.description}</textarea>
+            <textarea id="description" name="description" class="form-control">${ad.description}</textarea>
             <br>
-            <input type="submit" name="updatedDescriptionAd" class="btn btn-success stretched-link">
+            <input type="submit" name="description" class="btn btn-success stretched-link">
         </div>
     </form>
 </div>

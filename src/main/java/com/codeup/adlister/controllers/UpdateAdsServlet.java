@@ -16,10 +16,10 @@ import java.rmi.ServerException;
 public class UpdateAdsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-        long adId = Long.parseLong(req.getParameter("updateAd"));
+        long adId = Long.parseLong(req.getParameter("editAd"));
         Ad ad = DaoFactory.getAdsDao().findById(adId);
         req.setAttribute("ad",ad);
-        req.getRequestDispatcher("/WEB-INF/ads/editAd.jsp").forward(req,res);
+        req.getRequestDispatcher("/WEB-INF/ads/editAds.jsp").forward(req,res);
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException{
@@ -28,7 +28,7 @@ public class UpdateAdsServlet extends HttpServlet {
         req.setAttribute("title",DaoFactory.getAdsDao().editTitle(adId,"title"));
         req.setAttribute("description",DaoFactory.getAdsDao().editDescription(adId,"description"));
 
-        String updateAd = req.getParameter("adUpdate");
+        String updateAd = req.getParameter("updateAd");
         String adTitle = req.getParameter("title");
         String adDescription = req.getParameter("description");
 

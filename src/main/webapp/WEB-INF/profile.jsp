@@ -19,11 +19,11 @@
                 </div>
                 <form action="/ads/delete" method="post">
                     <input type="hidden" name="deleteAd" value="${ad.id}">
-                    <input type="submit" value="Delete your ads" class="btn btn-danger stretched-link">
+                    <input type="submit" value="Delete ad" class="btn btn-danger stretched-link">
                 </form>
-                <form action="/updateAds" method="post">
+                <form action="/ads/updateAds" method="get">
                     <input type="hidden" name="editAd" value="${ad.id}">
-                    <input type="submit" value="Edit ads" class="btn btn-success stretched-link">
+                    <input type="submit" value="Edit ad" class="btn btn-success stretched-link">
                 </form>
             </c:forEach>
         </div>
