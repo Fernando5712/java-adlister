@@ -14,8 +14,13 @@ public interface Ads {
 
     Ad findById(long id);
 
-    Ad deleteAds(long id);
+    Ad deleteAd(long id);
+
     List<Ad> search(String query);
 
     List<Ad> adsByUser(long userId);
+
+    Ad edit(long id, String title);
+
+    Ad editDescription(long id, String description);
 }

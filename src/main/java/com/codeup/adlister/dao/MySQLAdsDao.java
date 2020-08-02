@@ -86,7 +86,7 @@ public class MySQLAdsDao implements Ads {
     }
 
     public Ad findById(long id){
-        String findIdQuery = "SELECT * WHERE id = ?";
+        String findIdQuery = "SELECT * FROM ads WHERE id = ?";
         try{
             PreparedStatement statement = connection.prepareStatement(findIdQuery);
             statement.setLong(1, id);
@@ -100,20 +100,21 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
-
-    public Ad deleteAds(long id) {
+    public Ad deleteAd(long id) {
+        findById(id);
         try {
-            findById(id);
             String deleteQuery = "DELETE FROM ads WHERE id = ?";
-            PreparedStatement statement = connection.prepareStatement(deleteQuery, RETURN_GENERATED_KEYS);
-            statement.setLong(1, id);
-            statement.executeUpdate();
-            boolean confirm = statement.execute();
+            PreparedStatement stmt = connection.prepareStatement(deleteQuery, RETURN_GENERATED_KEYS);
+            stmt.setLong(1,id);
+            stmt.executeUpdate();
+            boolean confirm = stmt.execute();
             return null;
-        } catch (SQLException e) {
-            throw new RuntimeException("Error, ad cannot be deleted", e);
+        }catch (SQLException e){
+            throw new RuntimeException("Error cannot delete");
         }
+
     }
+
 
     @Override
     public List<Ad> search(String query) {
@@ -139,6 +140,36 @@ public class MySQLAdsDao implements Ads {
             return createAdsFromResults(rs);
         } catch (SQLException e){
             throw new RuntimeException("Cannot retrieve ad", e);
+        }
+    }
+
+    @Override
+    public Ad edit(long id, String title){
+        findById(id);
+        String editQuery = "UPDATE ads SET title = ? WHERE id = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(editQuery);
+            stmt.setString(1, title);
+            stmt.setLong(2, id);
+            stmt.executeUpdate();
+            return null;
+        } catch (SQLException e){
+            throw new RuntimeException("Error editing title");
+        }
+    }
+
+    @Override
+    public Ad editDescription(long id, String description){
+        findById(id);
+        String editDescriptionQuery = "UPDATE ads SET description = ? WHERE id = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(editDescriptionQuery);
+            stmt.setString(1, description);
+            stmt.setLong(2,id);
+            stmt.executeUpdate();
+            return null;
+        } catch (SQLException e){
+            throw new RuntimeException("Error editing description");
         }
     }
 }

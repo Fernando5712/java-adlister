@@ -17,10 +17,13 @@
                     <div><h3>${ad.title}</h3></div>
                     <div><p>${ad.description}</p></div>
                 </div>
+                <form action="/ads/delete" method="post">
+                    <input type="hidden" name="deleteAd" value="${ad.id}">
+                    <input type="submit" value="Delete your ads" class="btn btn-danger stretched-link">
+                </form>
             </c:forEach>
         </div>
     </div>
-    <input type="submit" name="deleteAd" value="Delete your ads" class="btn btn-danger stretched-link">
 
 </body>
 </html>

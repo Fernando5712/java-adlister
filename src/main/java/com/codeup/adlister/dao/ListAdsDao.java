@@ -37,15 +37,24 @@ public class ListAdsDao implements Ads {
     @Override
     public Ad findById(long id) {return ads.get((int) id - 1);}
     @Override
-    public Ad deleteAds(long id) { return ads.get((int) id - 1); }
+    public Ad deleteAd(long id) { return ads.get((int) id - 1); }
     @Override
     public List<Ad> search(String query) {
         return null;
     }
-
     @Override
     public List<Ad> adsByUser(long userId) {
         return null;
+    }
+
+    @Override
+    public Ad edit(long id, String title) {
+        return ads.get((int) id - 1);
+    }
+
+    @Override
+    public Ad editDescription(long id, String description) {
+        return ads.get((int) id - 1);
     }
 
     private List<Ad> generateAds() {
