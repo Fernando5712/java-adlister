@@ -107,7 +107,6 @@ public class MySQLAdsDao implements Ads {
             PreparedStatement stmt = connection.prepareStatement(deleteQuery, RETURN_GENERATED_KEYS);
             stmt.setLong(1,id);
             stmt.executeUpdate();
-            boolean confirm = stmt.execute();
             return null;
         }catch (SQLException e){
             throw new RuntimeException("Error cannot delete");
